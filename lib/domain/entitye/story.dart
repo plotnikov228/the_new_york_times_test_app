@@ -9,9 +9,9 @@ class Story {
   final String uri;
   final String byline;
   final String itemType;
-  final DateTime updatedDate;
-  final DateTime createdDate;
-  final DateTime publishedDate;
+  final DateTime? updatedDate;
+  final DateTime? createdDate;
+  final DateTime? publishedDate;
   final String materialTypeFacet;
   final String kicker;
   final List<String> desFacet;

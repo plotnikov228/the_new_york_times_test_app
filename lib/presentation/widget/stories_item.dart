@@ -71,10 +71,10 @@ Widget StoryItem(Story story, BuildContext context) {
                           TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                        '${story.publishedDate.year}.${story.publishedDate.month}.${story.publishedDate.day}  '
-                            '${story.publishedDate.hour.toString().length != 1 ? story.publishedDate.hour : '0${story.publishedDate.hour}'}:'
-                        '${story.publishedDate.minute.toString().length != 1 ? story.publishedDate.minute : '0${story.publishedDate.minute}'}:'
-                            '${story.publishedDate.second.toString().length != 1 ? story.publishedDate.second : '0${story.publishedDate.second}'}',
+                        '${story.publishedDate?.year}.${story.publishedDate?.month}.${story.publishedDate?.day}  '
+                            '${story.publishedDate?.hour.toString().length != 1 ? story.publishedDate?.hour : '0${story.publishedDate?.hour}'}:'
+                        '${story.publishedDate?.minute.toString().length != 1 ? story.publishedDate?.minute : '0${story.publishedDate?.minute}'}:'
+                            '${story.publishedDate?.second.toString().length != 1 ? story.publishedDate?.second : '0${story.publishedDate?.second}'}',
                         style: const TextStyle(fontSize: 10))
                   ],
                 ),
