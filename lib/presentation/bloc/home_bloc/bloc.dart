@@ -123,11 +123,3 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 }
 
-
-/*   Future<List<Story>> getStoriesStream(String _section) async {
-      while(true) {
-        print('is working');
-        await Future.delayed(const Duration(milliseconds: 10000));
-        return await GetStories(storyRepositoryImpl, _section).getStories();
-      }
-    }*/
