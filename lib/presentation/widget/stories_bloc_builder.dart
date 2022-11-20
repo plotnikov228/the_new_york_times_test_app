@@ -38,7 +38,6 @@ class StoriesBlocBuilder extends StatelessWidget {
             }
 
             if(snapshot.data != null && snapshot.data!.first.title != state.fetchedData.first.title) {
-              print('!!!!!!!!!!!!snapshot.data! != state.fetchedData!!!!!!!!!!!!!');
                 bloc.add(HomeRefreshListEvent(snapshot.data!));
             }
 
