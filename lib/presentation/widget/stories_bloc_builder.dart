@@ -39,10 +39,7 @@ class StoriesBlocBuilder extends StatelessWidget {
 
             if(snapshot.data != null && snapshot.data!.first.title != state.fetchedData.first.title) {
               print('!!!!!!!!!!!!snapshot.data! != state.fetchedData!!!!!!!!!!!!!');
-              WidgetsBinding.instance.addPostFrameCallback((_) {
                 bloc.add(HomeRefreshListEvent(snapshot.data!));
-              });
-
             }
 
            return CustomScrollView(
