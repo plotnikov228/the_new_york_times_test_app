@@ -28,7 +28,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         StoryRemoteDataSources(), StoryLocalDataSources(), ConnectionInfo());
 ///HOME LOAD
     on<HomeLoadEvent>((event, emit) async {
-
+      emit(HomeLoadingState(sections, section, favoriteSections));
       fetchedData = await GetStories(storyRepositoryImpl, section).getStories();
 
       listRightNow = fetchedData;
@@ -57,6 +57,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     });
 ///HOME CHANGE SECTION
     on<HomeChangeSectionEvent>((event, emit) async {
+      emit(HomeLoadingState(sections, section, favoriteSections));
       section = event.section;
       selectedPage = 1;
       fetchedData = await GetStories(storyRepositoryImpl, section).getStories();
@@ -111,6 +112,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if(event.fetchedData != null){
         fetchedData = event.fetchedData;
         pages = event.fetchedData.length ~/ 5;
+        if (fetchedData.length < 5) {
+          itemList = fetchedData.length;
+          pages = 1;
+        }
+        if(pages * 5 < fetchedData.length) {
+          pages++;
+        }
         if(selectedPage != 1) {
           if(selectedPage <= pages) {
             add(HomeChangePageEvent(selectedPage));

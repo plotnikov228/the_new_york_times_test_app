@@ -33,16 +33,10 @@ class StoriesBlocBuilder extends StatelessWidget {
           stream: getStoriesStream(state.section),
           builder: (context, AsyncSnapshot<List<Story>> snapshot) {
 
-            if(snapshot.connectionState == ConnectionState.waiting){
-              return StoriesLoadingSliverWidget(bloc, state.section, state.favoriteSections, state.sections);
-            }
-
-            if(snapshot.data != null && snapshot.data!.first.title != state.fetchedData.first.title) {
-              print('!!!!!!!!!!!!snapshot.data! != state.fetchedData!!!!!!!!!!!!!');
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+            if(snapshot.connectionState != ConnectionState.waiting && snapshot.data! != null ) {
+              if(snapshot.data!.first.title != state.fetchedData.first.title) {
                 bloc.add(HomeRefreshListEvent(snapshot.data!));
-              });
-
+              }
             }
 
            return CustomScrollView(
