@@ -121,10 +121,41 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         }
         if(selectedPage != 1) {
           if(selectedPage <= pages) {
-            add(HomeChangePageEvent(selectedPage));
+            List<Story> _list = [];
+            int maxLengthList = selectedPage * 5;
+            if (maxLengthList > fetchedData.length) {
+              maxLengthList = maxLengthList - (maxLengthList - fetchedData.length);
+            }
+            for (int i = maxLengthList - 5; i < maxLengthList; i++) {
+              print(i);
+              _list.add(fetchedData[i]);
+            }
+            listRightNow = _list;
+
+            emit(HomeLoadedState(listRightNow, selectedPage, pages, itemList, sections,
+                section, favoriteSections, fetchedData));
           } else {
-            add(HomeChangePageEvent(1));
+            List<Story> _list = [];
+            for (int i =0; i < 5; i++) {
+              print(i);
+              _list.add(fetchedData[i]);
+            }
+            listRightNow = _list;
+
+            emit(HomeLoadedState(listRightNow, selectedPage, pages, itemList, sections,
+                section, favoriteSections, fetchedData));
           }
+        }
+        else {
+          List<Story> _list = [];
+          for (int i =0; i < 5; i++) {
+            print(i);
+            _list.add(fetchedData[i]);
+          }
+          listRightNow = _list;
+
+          emit(HomeLoadedState(listRightNow, selectedPage, pages, itemList, sections,
+              section, favoriteSections, fetchedData));
         }
       }
     });

@@ -107,8 +107,8 @@ class StoriesBlocBuilder extends StatelessWidget {
                   ],
                 ),
               ),
-              StoriesList(state.list, context, state.listItem),
-              StoriesPagination(state.pages, state.page, context, bloc),
+              StoriesList(state.list.isEmpty ? [] : state.list, context, state.list.isEmpty ? 0 : state.listItem),
+              StoriesPagination(state.list.isEmpty ? 0 : state.pages, state.list.isEmpty ? 0 : state.page, context, bloc),
 
             ],
 
