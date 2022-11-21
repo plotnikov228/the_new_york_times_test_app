@@ -3,7 +3,7 @@ import 'package:top_stories_test/data/datasources/local_datasources/story_local_
 import 'package:top_stories_test/data/datasources/remote_datasources/story_remote_datasources.dart';
 import 'package:top_stories_test/data/mapper/story_mapper.dart';
 import 'package:top_stories_test/data/model/story_model.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/domain/repository/story_repository.dart';
 
 class StoryRepositoryImpl implements StoryRepository {
@@ -53,8 +53,10 @@ class StoryRepositoryImpl implements StoryRepository {
         if (element.section == query) {
           searchList.add(element);
         }
-        if (element.title.contains(query)) {
-          searchList.add(element);
+        else {
+          if (element.title.contains(query)) {
+            searchList.add(element);
+          }
         }
       }
     }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:top_stories_test/data/datasources/local_datasources/story_local_datasources.dart';
 import 'package:top_stories_test/domain/usecases/get_favorite_section.dart';
-import 'package:top_stories_test/presentation/view/home.dart';
+import 'package:top_stories_test/presentation/view/home_page.dart';
 
 void main() async {
   await WidgetsFlutterBinding.ensureInitialized();

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:top_stories_test/data/model/story_model.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../domain/entitye/story.dart';
+import '../../../domain/entities/story.dart';
 
 class StoryRemoteDataSources {
   final String apiKey = 'VeBcN1xA7YTXSiKVeGZGATP585TdJKfL';

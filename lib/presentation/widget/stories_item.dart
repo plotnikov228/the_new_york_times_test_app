@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/presentation/view/story_page.dart';
 
 Widget StoryItem(Story story, BuildContext context) {

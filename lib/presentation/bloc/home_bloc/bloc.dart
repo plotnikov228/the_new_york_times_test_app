@@ -3,7 +3,7 @@ import 'package:top_stories_test/data/datasources/connection_info.dart';
 import 'package:top_stories_test/data/datasources/local_datasources/story_local_datasources.dart';
 import 'package:top_stories_test/data/datasources/remote_datasources/story_remote_datasources.dart';
 import 'package:top_stories_test/data/repository/story_repository.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/domain/usecases/get_favorite_section.dart';
 import 'package:top_stories_test/domain/usecases/get_stories.dart';
 import 'package:top_stories_test/presentation/bloc/home_bloc/event.dart';

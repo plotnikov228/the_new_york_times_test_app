@@ -1,4 +1,4 @@
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 
 import '../repository/story_repository.dart';
 

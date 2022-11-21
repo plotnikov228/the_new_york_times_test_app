@@ -1,5 +1,5 @@
 import 'package:top_stories_test/data/model/multimedia_model.dart';
-import 'package:top_stories_test/domain/entitye/multimedia.dart';
+import 'package:top_stories_test/domain/entities/multimedia.dart';
 
 class MultimediaMapper extends Multimedia {
   MultimediaMapper(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/presentation/bloc/home_bloc/event.dart';
 
 Widget StoriesPagination(int pages, int selectedPage, BuildContext context, Bloc bloc,) {

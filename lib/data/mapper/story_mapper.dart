@@ -1,7 +1,6 @@
 import 'package:top_stories_test/data/mapper/multimedia_mapper.dart';
-import 'package:top_stories_test/data/model/multimedia_model.dart';
 import 'package:top_stories_test/data/model/story_model.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 
 class StoryMapper extends Story {
   StoryMapper(

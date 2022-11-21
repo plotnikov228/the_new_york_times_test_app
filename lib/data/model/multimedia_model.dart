@@ -1,4 +1,4 @@
-import 'package:top_stories_test/domain/entitye/multimedia.dart';
+import 'package:top_stories_test/domain/entities/multimedia.dart';
 
 class MultimediaModel{
   final String url;

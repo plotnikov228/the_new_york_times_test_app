@@ -1,19 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class StoryPage extends StatefulWidget {
+
+class StoryPage extends StatelessWidget {
   final String url;
-
   const StoryPage({Key? key, required this.url}) : super(key: key);
-
-  @override
-  State<StoryPage> createState() => _StoryPageState(url);
-}
-
-class _StoryPageState extends State<StoryPage> {
-  late final String url;
-
-  _StoryPageState(this.url);
 
   @override
   Widget build(BuildContext context) {

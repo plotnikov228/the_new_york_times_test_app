@@ -4,13 +4,13 @@ import 'package:top_stories_test/data/datasources/connection_info.dart';
 import 'package:top_stories_test/data/datasources/local_datasources/story_local_datasources.dart';
 import 'package:top_stories_test/data/datasources/remote_datasources/story_remote_datasources.dart';
 import 'package:top_stories_test/data/repository/story_repository.dart';
-import 'package:top_stories_test/domain/entitye/story.dart';
+import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/domain/usecases/get_stories.dart';
 
 import 'package:top_stories_test/presentation/bloc/home_bloc/bloc.dart';
 import 'package:top_stories_test/presentation/bloc/home_bloc/event.dart';
 import 'package:top_stories_test/presentation/bloc/home_bloc/state.dart';
-import 'package:top_stories_test/presentation/view/story_search_page.dart';
+import 'package:top_stories_test/presentation/view/search_page.dart';
 import 'package:top_stories_test/presentation/widget/stories_list.dart';
 import 'package:top_stories_test/presentation/widget/stories_loading_sliver_widget.dart';
 import 'package:top_stories_test/presentation/widget/stories_pagination.dart';
