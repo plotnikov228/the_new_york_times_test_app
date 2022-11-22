@@ -29,6 +29,15 @@ class StoriesBlocBuilder extends StatelessWidget {
 
       if (state is HomeLoadedState) {
 
+        Stream<List<Story>> getStoriesStream(String _section) async* {
+          while(true) {
+            print('is working');
+            await Future.delayed(const Duration(milliseconds: 5000));
+            yield await GetStories(StoryRepositoryImpl(
+                StoryRemoteDataSources(), StoryLocalDataSources(), ConnectionInfo()), _section).getStories();
+          }
+        }
+        
         return StreamBuilder(
           stream: getStoriesStream(state.section),
           builder: (context, AsyncSnapshot<List<Story>> snapshot) {
@@ -119,14 +128,5 @@ class StoriesBlocBuilder extends StatelessWidget {
         return Container();
       }
     });
-  }
-}
-
-Stream<List<Story>> getStoriesStream(String _section) async* {
-  while(true) {
-    print('is working');
-    await Future.delayed(const Duration(milliseconds: 5000));
-    yield await GetStories(StoryRepositoryImpl(
-        StoryRemoteDataSources(), StoryLocalDataSources(), ConnectionInfo()), _section).getStories();
   }
 }
