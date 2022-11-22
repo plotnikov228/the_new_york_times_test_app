@@ -126,6 +126,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if(selectedPage != 1) {
           if(selectedPage <= pages) {
             List<Story> _list = [];
+            itemList = 5;
             var maxLengthList = selectedPage * 5;
             if(maxLengthList > fetchedData.length) {
               itemList  = fetchedData.length - ((selectedPage - 1) * 5);
@@ -141,7 +142,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                 section, favoriteSections, fetchedData));
           } else {
             List<Story> _list = [];
-            for (int i =0; i < 5; i++) {
+            for (int i =0; i < (fetchedData.length > 5 ? 5 : fetchedData.length) ; i++) {
               print(i);
               _list.add(fetchedData[i]);
             }
