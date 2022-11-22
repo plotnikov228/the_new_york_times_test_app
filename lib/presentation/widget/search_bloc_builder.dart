@@ -60,12 +60,6 @@ class SearchBlocBuilder extends StatelessWidget {
         );
       }
       if (state is SearchLoadedState) {
-        Stream<List<Story>> getStoriesStream() async* {
-          while (true) {
-            yield state.list;
-          }
-        }
-
         return CustomScrollView(
           slivers: [
             SliverAppBar(

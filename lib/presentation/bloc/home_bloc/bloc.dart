@@ -30,7 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeLoadEvent>((event, emit) async {
       emit(HomeLoadingState(sections, section, favoriteSections));
       fetchedData = await GetStories(storyRepositoryImpl, section).getStories();
-
+      print(fetchedData.length);
       listRightNow = fetchedData;
       pages = fetchedData.length ~/ 5;
       itemList = 5;
@@ -82,14 +82,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeChangePageEvent>((event, emit) async {
       List<Story> _list = [];
       int maxLengthList = event.selectedPage * 5;
-      if (maxLengthList > fetchedData.length) {
-        maxLengthList = maxLengthList - (maxLengthList - fetchedData.length);
+      itemList = 5;
+      selectedPage = event.selectedPage;
+      if(maxLengthList > fetchedData.length) {
+        itemList  = fetchedData.length - ((event.selectedPage - 1) * 5);
+        maxLengthList = fetchedData.length;
       }
-      for (int i = maxLengthList - 5; i < maxLengthList; i++) {
+      for (int i = maxLengthList - itemList; i < maxLengthList; i++) {
         print(i);
         _list.add(fetchedData[i]);
       }
-      selectedPage = event.selectedPage;
+
       listRightNow = _list;
 
       emit(HomeLoadedState(listRightNow, selectedPage, pages, itemList, sections,
@@ -112,7 +115,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if(event.fetchedData != null){
         fetchedData = event.fetchedData;
         pages = event.fetchedData.length ~/ 5;
-        if (fetchedData.length < 5) {
+        itemList =5;
+        if (fetchedData.length <= 5) {
           itemList = fetchedData.length;
           pages = 1;
         }
@@ -122,11 +126,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         if(selectedPage != 1) {
           if(selectedPage <= pages) {
             List<Story> _list = [];
-            int maxLengthList = selectedPage * 5;
-            if (maxLengthList > fetchedData.length) {
-              maxLengthList = maxLengthList - (maxLengthList - fetchedData.length);
+            var maxLengthList = selectedPage * 5;
+            if(maxLengthList > fetchedData.length) {
+              itemList  = fetchedData.length - ((selectedPage - 1) * 5);
+              maxLengthList = fetchedData.length;
             }
-            for (int i = maxLengthList - 5; i < maxLengthList; i++) {
+            for (int i = maxLengthList - itemList; i < maxLengthList; i++) {
               print(i);
               _list.add(fetchedData[i]);
             }
@@ -147,8 +152,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           }
         }
         else {
+          itemList = fetchedData.length > 5 ? 5 : fetchedData.length;
           List<Story> _list = [];
-          for (int i =0; i < 5; i++) {
+          for (int i =0; i < itemList; i++) {
             print(i);
             _list.add(fetchedData[i]);
           }

@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:top_stories_test/data/datasources/connection_info.dart';
 import 'package:top_stories_test/data/datasources/local_datasources/story_local_datasources.dart';
@@ -29,6 +32,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       event.query,
       list
     ).searchStories();
+    print(_list.length);
     pages = _list.length ~/ 5;
     itemList = 5;
     if(_list.length < 5) {
@@ -51,14 +55,19 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     List<Story> list = [];
     var maxLengthList = event.selectedPage * 5;
-    if (maxLengthList > _list.length) {
-      maxLengthList = maxLengthList - (maxLengthList - _list.length);
+    itemList = 5;
+    selectedPage = event.selectedPage;
+    if(maxLengthList > _list.length) {
+      itemList  = _list.length - ((event.selectedPage - 1) * 5);
+      maxLengthList = _list.length;
     }
-    for (int i = maxLengthList - 5; i < maxLengthList; i++) {
+        selectedPage = event.selectedPage;
+
+    for (int i = maxLengthList - itemList; i < maxLengthList; i++) {
       print(i);
       list.add(_list[i]);
     }
-    selectedPage = event.selectedPage;
+
     emit(SearchLoadedState(list, selectedPage, pages, itemList, query));
   });
 
