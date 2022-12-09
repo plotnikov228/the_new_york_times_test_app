@@ -5,6 +5,7 @@ import 'package:top_stories_test/data/mapper/story_mapper.dart';
 import 'package:top_stories_test/data/model/story_model.dart';
 import 'package:top_stories_test/domain/entities/story.dart';
 import 'package:top_stories_test/domain/repository/story_repository.dart';
+import 'package:top_stories_test/domain/usecases/get_favorite_section.dart';
 
 class StoryRepositoryImpl implements StoryRepository {
   final StoryRemoteDataSources storyRemoteDataSources;
@@ -22,15 +23,15 @@ class StoryRepositoryImpl implements StoryRepository {
       connectionInfo.connection = true;
       print("all okey1");
       if (_list.isNotEmpty) {
-        if (section == 'home') {
-          List<StoryModel> _localList = await storyLocalDataSources.getBox();
+        if (GetFavoriteSection.favoriteSections.contains(section)) {
+          List<StoryModel> _localList = await storyLocalDataSources.getBox(section);
           print("all okey2");
           if (_localList.isNotEmpty) {
-            await storyLocalDataSources.deleteBox();
-            await storyLocalDataSources.setBox(_list);
+            await storyLocalDataSources.deleteBox(section);
+            await storyLocalDataSources.setBox(_list, section);
             print("all okey3 is not empty");
           } else {
-            await storyLocalDataSources.setBox(_list);
+            await storyLocalDataSources.setBox(_list, section);
             print("all okey3 is empty");
           }
         }
@@ -39,7 +40,7 @@ class StoryRepositoryImpl implements StoryRepository {
     } catch (_) {
       connectionInfo.connection = false;
       print(connectionInfo.connection);
-      _list = await storyLocalDataSources.getBox();
+      _list = await storyLocalDataSources.getBox(section);
     }
     return _list.map((e) => StoryMapper.fromJson(e)).toList();
   }
@@ -61,5 +62,17 @@ class StoryRepositoryImpl implements StoryRepository {
       }
     }
     return searchList;
+  }
+
+  @override
+  Future<List<StoryModel>> getLocalStories(String section) async {
+    List<StoryModel> _list = await storyLocalDataSources.getBox(section);
+    return _list;
+  }
+
+  @override
+  Future<List<StoryModel>> getRemoteStories(String section) async {
+    List<StoryModel> _list = await storyRemoteDataSources.getStories(section);
+    return _list;
   }
 }

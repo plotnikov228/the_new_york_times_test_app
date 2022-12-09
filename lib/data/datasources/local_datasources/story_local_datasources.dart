@@ -6,31 +6,28 @@ import 'package:top_stories_test/data/model/story_model.dart';
 import 'package:path_provider/path_provider.dart' as path;
 
 class StoryLocalDataSources {
-  final Box box = Hive.box("list");
-  static late Box staticBox;
 
   static Future initDB () async{
     var _dir = await path.getApplicationDocumentsDirectory();
     Hive.init(_dir.path);
-    await Hive.openBox("list");
-    staticBox =  Hive.box("list");
   }
 
-  Future setBox(List<StoryModel> model) async {
+  Future setBox(List<StoryModel> model, String section) async {
     for(var item in model) {
-      box.add(jsonEncode(item.toJson()));
+      Hive.box(section).add(jsonEncode(item.toJson()));
     }
   }
 
-  Future deleteBox() async {
-    await box.clear();
+  Future deleteBox( String section) async {
+    await Hive.box(section).clear();
   }
 
-  Future<List<StoryModel>> getBox() async {
+  Future<List<StoryModel>> getBox(String section) async {
+    await Hive.openBox(section);
     List<dynamic> storyJson = [];
     List<StoryModel> list = [];
-    for(int i = 0; i < box.length; i++){
-      storyJson.add(jsonDecode(box.getAt(i)!));
+    for(int i = 0; i < Hive.box(section).length; i++){
+      storyJson.add(jsonDecode(Hive.box(section).getAt(i)!));
     }
     for(var item in storyJson){
       list.add(StoryModel.fromJson(item));

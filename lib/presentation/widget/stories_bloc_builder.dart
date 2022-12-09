@@ -29,6 +29,15 @@ class StoriesBlocBuilder extends StatelessWidget {
 
       if (state is HomeLoadedState) {
 
+        Stream<List<Story>> getStoriesStream(String _section) async* {
+          while(true) {
+            print('is working');
+            await Future.delayed(const Duration(milliseconds: 5000));
+            yield await GetStories(StoryRepositoryImpl(
+                StoryRemoteDataSources(), StoryLocalDataSources(), ConnectionInfo()), _section).getStories();
+          }
+        }
+
         return StreamBuilder(
           stream: getStoriesStream(state.section),
           builder: (context, AsyncSnapshot<List<Story>> snapshot) {
@@ -37,6 +46,80 @@ class StoriesBlocBuilder extends StatelessWidget {
               if(snapshot.data!.first.title != state.fetchedData.first.title) {
                 bloc.add(HomeRefreshListEvent(snapshot.data!));
               }
+            }
+
+            if(snapshot.connectionState != ConnectionState.waiting && snapshot.data! == null) {
+              return CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    title: Text(state.section),
+                    floating: true,
+                    elevation: 0,
+                    actions: [
+                      IconButton(
+                        icon: Icon(state.favoriteSections.contains(state.section)
+                            ? Icons.remove
+                            : Icons.add),
+                        onPressed: () {
+                          bloc.add(HomeAddSectionToFavoriteEvent(state.section));
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => StorySearch(
+                                  loadedList: state.fetchedData)));
+                        },
+                      )
+                    ],
+                    bottom: AppBar(
+                      automaticallyImplyLeading: false,
+                      title: Container(
+                          width: double.infinity,
+                          height: 40,
+                          color: Colors.white,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    if (state.section !=
+                                        state.favoriteSections[index]) {
+                                      bloc.add(HomeChangeSectionEvent(
+                                          state.favoriteSections[index]));
+                                    }
+                                  },
+                                  child: Text(
+                                    state.favoriteSections[index],
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              );
+                            },
+                            itemCount: state.favoriteSections.length,
+                          )),
+                      actions: [
+                        DropdownButton(
+                            hint: Text(state.section),
+                            items: state.sections
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                            onChanged: (String? section) {
+                              bloc.add(HomeChangeSectionEvent(section.toString()));
+                            })
+                      ],
+                    ),
+                  ),
+                ],
+
+              );
             }
 
            return CustomScrollView(
@@ -107,8 +190,8 @@ class StoriesBlocBuilder extends StatelessWidget {
                   ],
                 ),
               ),
-              StoriesList(state.list.isEmpty ? [] : state.list, context, state.list.isEmpty ? 0 : state.listItem),
-              StoriesPagination(state.list.isEmpty ? 0 : state.pages, state.list.isEmpty ? 0 : state.page, context, bloc),
+              StoriesList(state.list, context, state.listItem),
+              StoriesPagination(state.pages, state.page, context, bloc),
 
             ],
 
@@ -122,11 +205,3 @@ class StoriesBlocBuilder extends StatelessWidget {
   }
 }
 
-Stream<List<Story>> getStoriesStream(String _section) async* {
-  while(true) {
-    print('is working');
-    await Future.delayed(const Duration(milliseconds: 5000));
-    yield await GetStories(StoryRepositoryImpl(
-        StoryRemoteDataSources(), StoryLocalDataSources(), ConnectionInfo()), _section).getStories();
-  }
-}
