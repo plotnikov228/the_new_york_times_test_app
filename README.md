@@ -1,16 +1,18 @@
 # top_stories_test
 
-A new Flutter project.
+Приложение что получает новости через https://developer.nytimes.com/docs/top-stories-product/1/overview
+Стейт менеджер - Bloc
+Сохранение новостей - Hive
 
-## Getting Started
+## Приложение содержит 3 экрана
 
-This project is a starting point for a Flutter application.
+1. Лента новостей с возможностью поменять рубрику и добавить рубрику в избранное
 
-A few resources to get you started if this is your first Flutter project:
+![evDgIXY0N0k (1)](https://user-images.githubusercontent.com/92577632/209202813-96884975-3107-426d-85a5-fd760c96510d.jpg)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+2. Поиск новостей из рубрики, что выбранна в данный момент
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![CNHtC2P2WqY (1)](https://user-images.githubusercontent.com/92577632/209202898-bdded00e-0a7c-41a1-b32f-21543a1a076e.jpg)
+
+3. Переход непосредственно на страницу новости через WebView
+
